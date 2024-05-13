@@ -4,7 +4,7 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'sqlsrv:server=CHALITO\SQLEXPRESS;database=Crop_Analysis',
     'username' => 'sa',
-    'password' => '123456Aa',
+    'password' => '1234',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
