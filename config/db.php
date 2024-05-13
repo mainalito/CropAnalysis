@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlsrv:server=DESKTOP-DMPI15J;database=Crop_Analysis',
+    'dsn' => 'sqlsrv:server=CHALITO\SQLEXPRESS;database=Crop_Analysis',
     'username' => 'sa',
     'password' => '123456Aa',
     'charset' => 'utf8',
