@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlsrv:server=CHALITO\SQLEXPRESS;database=Crop_Analysis',
+    'dsn' => 'sqlsrv:Server=LAPTOP-BRNBO41G\THUFUDEVELOPER;Database=Crop_Analysis',
     'username' => 'sa',
-    'password' => '123456Aa',
+    'password' => 'Thufu1834',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
