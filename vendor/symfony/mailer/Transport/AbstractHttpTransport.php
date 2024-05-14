@@ -24,9 +24,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 abstract class AbstractHttpTransport extends AbstractTransport
 {
-    protected ?string $host = null;
-    protected ?int $port = null;
-    protected ?HttpClientInterface $client;
+    protected $host;
+    protected $port;
+    protected $client;
 
     public function __construct(?HttpClientInterface $client = null, ?EventDispatcherInterface $dispatcher = null, ?LoggerInterface $logger = null)
     {
@@ -45,7 +45,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
     /**
      * @return $this
      */
-    public function setHost(?string $host): static
+    public function setHost(?string $host)
     {
         $this->host = $host;
 
@@ -55,7 +55,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
     /**
      * @return $this
      */
-    public function setPort(?int $port): static
+    public function setPort(?int $port)
     {
         $this->port = $port;
 
@@ -66,6 +66,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
 
     protected function doSend(SentMessage $message): void
     {
+        $response = null;
         try {
             $response = $this->doSendHttp($message);
             $message->appendDebug($response->getInfo('debug') ?? '');

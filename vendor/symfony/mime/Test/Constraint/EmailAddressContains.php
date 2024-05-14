@@ -18,12 +18,18 @@ use Symfony\Component\Mime\RawMessage;
 
 final class EmailAddressContains extends Constraint
 {
-    public function __construct(
-        private string $headerName,
-        private string $expectedValue,
-    ) {
+    private $headerName;
+    private $expectedValue;
+
+    public function __construct(string $headerName, string $expectedValue)
+    {
+        $this->headerName = $headerName;
+        $this->expectedValue = $expectedValue;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toString(): string
     {
         return sprintf('contains address "%s" with value "%s"', $this->headerName, $this->expectedValue);
@@ -31,10 +37,12 @@ final class EmailAddressContains extends Constraint
 
     /**
      * @param RawMessage $message
+     *
+     * {@inheritdoc}
      */
     protected function matches($message): bool
     {
-        if (RawMessage::class === $message::class) {
+        if (RawMessage::class === \get_class($message)) {
             throw new \LogicException('Unable to test a message address on a RawMessage instance.');
         }
 
@@ -56,6 +64,8 @@ final class EmailAddressContains extends Constraint
 
     /**
      * @param RawMessage $message
+     *
+     * {@inheritdoc}
      */
     protected function failureDescription($message): string
     {

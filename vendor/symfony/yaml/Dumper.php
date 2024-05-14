@@ -24,8 +24,10 @@ class Dumper
 {
     /**
      * The amount of spaces to use for indentation of nested nodes.
+     *
+     * @var int
      */
-    private int $indentation;
+    protected $indentation;
 
     public function __construct(int $indentation = 4)
     {
@@ -44,17 +46,17 @@ class Dumper
      * @param int   $indent The level of indentation (used internally)
      * @param int   $flags  A bit field of Yaml::DUMP_* constants to customize the dumped YAML string
      */
-    public function dump(mixed $input, int $inline = 0, int $indent = 0, int $flags = 0): string
+    public function dump($input, int $inline = 0, int $indent = 0, int $flags = 0): string
     {
         $output = '';
         $prefix = $indent ? str_repeat(' ', $indent) : '';
         $dumpObjectAsInlineMap = true;
 
         if (Yaml::DUMP_OBJECT_AS_MAP & $flags && ($input instanceof \ArrayObject || $input instanceof \stdClass)) {
-            $dumpObjectAsInlineMap = !(array) $input;
+            $dumpObjectAsInlineMap = empty((array) $input);
         }
 
-        if ($inline <= 0 || (!\is_array($input) && !$input instanceof TaggedValue && $dumpObjectAsInlineMap) || !$input) {
+        if ($inline <= 0 || (!\is_array($input) && !$input instanceof TaggedValue && $dumpObjectAsInlineMap) || empty($input)) {
             $output .= $prefix.Inline::dump($input, $flags);
         } elseif ($input instanceof TaggedValue) {
             $output .= $this->dumpTaggedValue($input, $inline, $indent, $flags, $prefix);
@@ -66,11 +68,7 @@ class Dumper
                     $output .= "\n";
                 }
 
-                if (\is_int($key) && Yaml::DUMP_NUMERIC_KEY_AS_STRING & $flags) {
-                    $key = (string) $key;
-                }
-
-                if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value) && str_contains($value, "\n") && !str_contains($value, "\r")) {
+                if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value) && false !== strpos($value, "\n") && false === strpos($value, "\r")) {
                     $blockIndentationIndicator = $this->getBlockIndentationIndicator($value);
 
                     if (isset($value[-2]) && "\n" === $value[-2] && "\n" === $value[-1]) {
@@ -97,7 +95,7 @@ class Dumper
                 if ($value instanceof TaggedValue) {
                     $output .= sprintf('%s%s !%s', $prefix, $dumpAsMap ? Inline::dump($key, $flags).':' : '-', $value->getTag());
 
-                    if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
+                    if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && false !== strpos($value->getValue(), "\n") && false === strpos($value->getValue(), "\r\n")) {
                         $blockIndentationIndicator = $this->getBlockIndentationIndicator($value->getValue());
                         $output .= sprintf(' |%s', $blockIndentationIndicator);
 
@@ -121,10 +119,10 @@ class Dumper
                 $dumpObjectAsInlineMap = true;
 
                 if (Yaml::DUMP_OBJECT_AS_MAP & $flags && ($value instanceof \ArrayObject || $value instanceof \stdClass)) {
-                    $dumpObjectAsInlineMap = !(array) $value;
+                    $dumpObjectAsInlineMap = empty((array) $value);
                 }
 
-                $willBeInlined = $inline - 1 <= 0 || !\is_array($value) && $dumpObjectAsInlineMap || !$value;
+                $willBeInlined = $inline - 1 <= 0 || !\is_array($value) && $dumpObjectAsInlineMap || empty($value);
 
                 $output .= sprintf('%s%s%s%s',
                     $prefix,
@@ -142,7 +140,7 @@ class Dumper
     {
         $output = sprintf('%s!%s', $prefix ? $prefix.' ' : '', $value->getTag());
 
-        if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
+        if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && false !== strpos($value->getValue(), "\n") && false === strpos($value->getValue(), "\r\n")) {
             $blockIndentationIndicator = $this->getBlockIndentationIndicator($value->getValue());
             $output .= sprintf(' |%s', $blockIndentationIndicator);
 
@@ -169,7 +167,7 @@ class Dumper
         // http://www.yaml.org/spec/1.2/spec.html#id2793979
         foreach ($lines as $line) {
             if ('' !== trim($line, ' ')) {
-                return str_starts_with($line, ' ') ? (string) $this->indentation : '';
+                return (' ' === substr($line, 0, 1)) ? (string) $this->indentation : '';
             }
         }
 
