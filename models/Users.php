@@ -51,6 +51,48 @@ class Users extends \yii\db\ActiveRecord
     }
 
     /**
+     * Added by Paul Mburu
+     * Filter Deleted Items
+     */
+    public static function find()
+    {
+        return parent::find()->andWhere(['=', 'users.deleted', 0]);
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before delete
+     */
+    public function delete()
+    {
+        $m = parent::findOne($this->getPrimaryKey());
+        $m->deleted = 1;
+        $m->deletedTime = date('Y-m-d H:i:s');
+        return $m->save();
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before Save
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $model = new User();
+        //this record is always new
+        if ($this->isNewRecord) {
+            $this->status = 10;
+            $this->shouldChangePassword = 0;
+            $this->passwordChangeDate = date('Y-m-d');
+            $this->auth_key = Yii::$app->security->generateRandomString();
+            $this->verification_token = Yii::$app->security->generateRandomString();
+            $this->password_hash = Yii::$app->security->generatePasswordHash('Kenya@1234');
+            $this->createdBy = 1;//Yii::$app->user->identity->id;
+            $this->createdTime = date('Y-m-d h:i:s');
+        }
+        return parent::save();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()

@@ -30,6 +30,44 @@ class CropsCategory extends \yii\db\ActiveRecord
         return 'crops_category';
     }
 
+
+
+    /**
+     * Added by Paul Mburu
+     * Filter Deleted Items
+     */
+    public static function find()
+    {
+        return parent::find()->andWhere(['=', 'crops_category.deleted', 0]);
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before delete
+     */
+    public function delete()
+    {
+        $m = parent::findOne($this->getPrimaryKey());
+        $m->deleted = 1;
+        $m->deletedTime = date('Y-m-d H:i:s');
+        return $m->save();
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before Save
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $model = new User();
+        //this record is always new
+        if ($this->isNewRecord) {
+            $this->createdBy = 1;//Yii::$app->user->identity->id;
+            $this->createdTime = date('Y-m-d h:i:s');
+        }
+        return parent::save();
+    }
+
     /**
      * {@inheritdoc}
      */
