@@ -16,18 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'notificationStatusName')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comments')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'createdTime')->textInput() ?>
-
-    <?= $form->field($model, 'updatedTime')->textInput() ?>
-
-    <?= $form->field($model, 'deleted')->textInput() ?>
-
-    <?= $form->field($model, 'deletedTime')->textInput() ?>
-
-    <?= $form->field($model, 'createdBy')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
