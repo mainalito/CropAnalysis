@@ -26,20 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'cropCategoryId',
+            [
+                'attribute' => 'cropCategory.name',
+                'label' => 'Crop Category'
+            ],
             'code',
             'name',
-            'comments:ntext',
-            //'createdTime',
-            //'updatedTime',
-            //'deleted:boolean',
-            //'deletedTime',
-            //'createdBy',
+            [
+                'attribute' => 'createdBy0.username',
+                'label' => 'Created By'
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Crops $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

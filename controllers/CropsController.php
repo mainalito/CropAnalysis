@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\models\Crops;
+use app\models\CropsCategory;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -83,12 +85,12 @@ class CropsController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
+        $categories = ArrayHelper::map(CropsCategory::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
+            'categories' => $categories
         ]);
     }
 
@@ -107,8 +109,10 @@ class CropsController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $categories = ArrayHelper::map(CropsCategory::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
+            'categories' => $categories
         ]);
     }
 

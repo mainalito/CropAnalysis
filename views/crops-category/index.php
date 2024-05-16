@@ -28,12 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'code',
             'name',
-            'comments:ntext',
+            //'comments:ntext',
             'createdTime',
             //'updatedTime',
             //'deleted:boolean',
             //'deletedTime',
-            //'createdBy',
+            'createdBy0.username',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, CropsCategory $model, $key, $index, $column) {
