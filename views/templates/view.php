@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Close', ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -34,12 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'templateName',
             'subject',
             'message:ntext',
-            'comments:ntext',
             'createdTime',
-            'updatedTime',
-            'deleted',
-            'deletedTime',
-            'createdBy',
+            'createdBy.username',
         ],
     ]) ?>
 
