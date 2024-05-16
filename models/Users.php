@@ -86,7 +86,7 @@ class Users extends \yii\db\ActiveRecord
             $this->auth_key = Yii::$app->security->generateRandomString();
             $this->verification_token = Yii::$app->security->generateRandomString();
             $this->password_hash = Yii::$app->security->generatePasswordHash('Kenya@1234');
-            $this->createdBy = 1;//Yii::$app->user->identity->id;
+            $this->createdBy = Yii::$app->user->identity->id;
             $this->createdTime = date('Y-m-d h:i:s');
         }
         return parent::save();

@@ -59,7 +59,7 @@ class PastPasswords extends \yii\db\ActiveRecord
         $model = new User();
         //this record is always new
         if ($this->isNewRecord) {
-            $this->createdBy = 1;//Yii::$app->user->identity->id;
+            $this->createdBy = Yii::$app->user->identity->id;
             $this->createdTime = date('Y-m-d h:i:s');
         }
         return parent::save();

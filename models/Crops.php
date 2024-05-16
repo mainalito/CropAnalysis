@@ -48,7 +48,7 @@ class Crops extends \yii\db\ActiveRecord
     public function delete()
     {
         $m = parent::findOne($this->getPrimaryKey());
-        $m->deleted = 1;
+        $m->deleted = Yii::$app->user->identity->id;
         $m->deletedTime = date('Y-m-d H:i:s');
         return $m->save();
     }
