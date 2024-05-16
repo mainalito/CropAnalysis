@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Crops $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var app\models\CropsCategory $categories */
 ?>
 
 <div class="crops-form">

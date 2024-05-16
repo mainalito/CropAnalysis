@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\CropRequirements $model */
+/** @var app\models\CropsCategory $categories */
 
 $this->title = 'Update Crop Requirements: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Crop Requirements', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories' => $categories
     ]) ?>
 
 </div>

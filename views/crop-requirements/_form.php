@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\CropRequirements $model */
+/** @var app\models\CropsCategory $categories */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -12,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'cropCategoryId')->dropDownList($categories, ['prompt' => 'Select Crop Category']) ?>
 
     <?= $form->field($model, 'cropId')->textInput() ?>
 

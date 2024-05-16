@@ -23,6 +23,7 @@ use Yii;
  */
 class CropRequirements extends \yii\db\ActiveRecord
 {
+    public $cropCategoryId;
     /**
      * {@inheritdoc}
      */
@@ -93,7 +94,8 @@ class CropRequirements extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cropId' => 'Crop ID',
+            'cropCategoryId' => 'Crop Category',
+            'cropId' => 'Crop',
             'code' => 'Code',
             'name' => 'Name',
             'comments' => 'Comments',
