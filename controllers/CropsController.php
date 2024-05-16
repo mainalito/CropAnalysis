@@ -100,21 +100,6 @@ class CropsController extends Controller
         ]);
     }
 
-    public function actionCreateRequirements($id)
-    {
-        $model = new CropRequirements();
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        }
-
-        $model->cropId = $id;
-        return $this->render('create-requirements', [
-            'model' => $model,
-        ]);
-    }
-
     /**
      * Updates an existing Crops model.
      * If update is successful, the browser will be redirected to the 'view' page.

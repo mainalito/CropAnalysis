@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\Parameters $model */
+/** @var app\models\NatureOfAnalysis $nature */
 
 $this->title = 'Update Parameters: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Parameters', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'nature' => $nature
     ]) ?>
 
 </div>

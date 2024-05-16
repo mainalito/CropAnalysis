@@ -31,11 +31,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'natureOfAnalysisId',
+            [
+                'attribute' => 'natureOfAnalysis.name',
+                'label' => 'Nature of Analysis'
+            ],
             'code',
             'name',
-            'createdTime',
-            'createdBy.username',
+            [
+                'attribute' => 'createdTime',
+                'format' => ['date', 'php:d/m/Y h:i a'],
+                'label' => 'Created Time'
+            ],
+            [
+                'attribute' => 'createdBy0.username',
+                'label' => 'Created By'
+            ],
         ],
     ]) ?>
 

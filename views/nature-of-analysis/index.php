@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'code',
             'name',
-            'comments:ntext',
-            'createdTime',
+//            'comments:ntext',
+//            'createdTime',
             //'updatedTime',
             //'deleted:boolean',
             //'deletedTime',

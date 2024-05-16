@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\NatureOfAnalysis;
 use app\models\Parameters;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -83,12 +85,12 @@ class ParametersController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
+        $nature = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
+            'nature' => $nature
         ]);
     }
 
@@ -107,8 +109,10 @@ class ParametersController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $nature = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
+            'nature' => $nature
         ]);
     }
 

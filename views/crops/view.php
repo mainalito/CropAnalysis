@@ -55,25 +55,3 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
-<hr>
-<div class="crop-requirements-index">
-    <p>
-        <?= Html::a('Add Crop Requirements', ['create-requirements', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'code',
-            'name',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, CropRequirements $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
-
-</div>

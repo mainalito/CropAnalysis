@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'natureOfAnalysisId',
             'code',
             'name',
-            'comments:ntext',
+            //'comments:ntext',
             //'createdTime',
             //'updatedTime',
             //'deleted:boolean',
