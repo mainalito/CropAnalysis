@@ -72,7 +72,7 @@ class Farms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name', 'coordinates', 'altitude', 'createdBy'], 'required'],
+            [['name', 'coordinates', 'altitude', 'createdBy'], 'required'],
             [['id', 'createdBy'], 'integer'],
             [['altitude'], 'number'],
             [['comments'], 'string'],

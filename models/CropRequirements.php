@@ -73,7 +73,7 @@ class CropRequirements extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'cropId', 'code', 'name', 'createdBy'], 'required'],
+            [['cropId', 'code', 'name', 'createdBy'], 'required'],
             [['id', 'cropId', 'createdBy'], 'integer'],
             [['comments'], 'string'],
             [['createdTime', 'updatedTime', 'deletedTime'], 'safe'],

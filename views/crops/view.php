@@ -1,10 +1,15 @@
 <?php
 
+use app\models\CropRequirements;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var app\models\Crops $model */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Crops', 'url' => ['index']];
@@ -48,5 +53,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+</div>
+<hr>
+<div class="crop-requirements-index">
+    <p>
+        <?= Html::a('Add Crop Requirements', ['create-requirements', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'code',
+            'name',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, CropRequirements $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                }
+            ],
+        ],
+    ]); ?>
 
 </div>

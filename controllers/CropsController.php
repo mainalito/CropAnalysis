@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\CropRequirements;
 use app\models\Crops;
 use app\models\CropsCategory;
 use yii\data\ActiveDataProvider;
@@ -67,8 +68,13 @@ class CropsController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => CropRequirements::find()->andWhere(['cropId' => $model->id]),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -91,6 +97,21 @@ class CropsController extends Controller
         return $this->render('create', [
             'model' => $model,
             'categories' => $categories
+        ]);
+    }
+
+    public function actionCreateRequirements($id)
+    {
+        $model = new CropRequirements();
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        $model->cropId = $id;
+        return $this->render('create-requirements', [
+            'model' => $model,
         ]);
     }
 
