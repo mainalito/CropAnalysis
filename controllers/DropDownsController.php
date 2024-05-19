@@ -1,13 +1,12 @@
 <?php
 
-namespace frontend\controllers;
+namespace app\controllers;
 
-use app\models\Departments;
-use app\models\FinancialInstitutions;
+use app\models\Crops;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\web\Controller;;
+use yii\web\Controller;
 
 /**
  *
@@ -34,7 +33,7 @@ class DropDownsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['financial-institution', 'institution-departments'],
+                        'actions' => ['crops'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -43,13 +42,14 @@ class DropDownsController extends Controller
         ];
     }
 
-    public function actionFinancialInstitution()
+    public function actionCrops()
     {
+        //var_dump($this->dependencyDropdownFirstParam).exit();
         echo $this->_generate_dropDown(
-            FinancialInstitutions::find()
-                ->where(['institutionTypeId' => $this->dependencyDropdownFirstParam])
+            Crops::find()
+                ->where(['cropCategoryId' => $this->dependencyDropdownFirstParam])
                 ->all()
-            , 'financialInstitutionName'
+            , 'name'
         );
     }
 
@@ -60,33 +60,7 @@ class DropDownsController extends Controller
 
         foreach ($data as $datum)
             $response[] = [
-                'id' => $datum->institutionTypeId,
-                'name' => $datum->$value,
-            ];
-
-        return json_encode([
-            'output' => $response,
-            'selected' => [],
-        ]);
-    }
-    public function actionInstitutionDepartments()
-    {
-        echo $this->_generate_departments(
-            Departments::find()
-                ->where(['institutionId' => $this->dependencyDropdownFirstParam])
-                ->all()
-            , 'departmentName'
-        );
-    }
-
-    private function _generate_departments($data, $value)
-    {
-
-        $response = [];
-
-        foreach ($data as $datum)
-            $response[] = [
-                'id' => $datum->departmentId,
+                'id' => $datum->id,
                 'name' => $datum->$value,
             ];
 

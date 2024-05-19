@@ -33,7 +33,8 @@ class AppAsset extends AssetBundle
         'asset/css/main.min.css',
     ];
     public $js = [
-        'asset/vendors/jquery/dist/jquery.min.js',
+        //'asset/vendors/jquery/dist/jquery.min.js',
+        //'https://code.jquery.com/jquery-3.7.1.min.js',
         'asset/vendors/popper.js/dist/umd/popper.min.js',
         'asset/vendors/bootstrap/dist/js/bootstrap.min.js',
         'asset/vendors/metisMenu/dist/metisMenu.min.js',

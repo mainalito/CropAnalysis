@@ -22,7 +22,7 @@ AppAsset::register($this);
     <div class="page-wrapper">
         <header class="header">
             <div class="page-brand">
-                <a href="index.html">
+                <a href="/">
                     <span class="brand">CROP ANALYSIS</span>
                     <span class="brand-mini">CA</span>
                 </a>
