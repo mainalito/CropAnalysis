@@ -7,6 +7,15 @@
                 </a>
             </li>
             <li>
+                <a href="javascript:;"><i class="sidebar-item-icon ti-menu-alt"></i>
+                    <span class="nav-label">Submissions</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="/test-submissions">Tests</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="javascript:;"><i class="sidebar-item-icon ti-money"></i>
                     <span class="nav-label">Crops</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">

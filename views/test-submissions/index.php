@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Parameters;
+use app\models\TestSubmissions;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,15 +9,15 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Parameters';
+$this->title = 'Test Submissions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="parameters-index">
+<div class="test-submissions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Parameters', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Test Submissions', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -26,10 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'natureOfAnalysis.name',
-            'code',
-            'name',
-            //'comments:ntext',
+            'id',
+            'farmId',
+            'testingTypeId',
+            'natureOfAnalysisId',
+            'comments:ntext',
             //'createdTime',
             //'updatedTime',
             //'deleted:boolean',
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'createdBy',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Parameters $model, $key, $index, $column) {
+                'urlCreator' => function ($action, TestSubmissions $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

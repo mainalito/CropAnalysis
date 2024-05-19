@@ -2,18 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\CropRequirements;
-use app\models\Crops;
+use app\models\TestSubmissions;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CropRequirementsController implements the CRUD actions for CropRequirements model.
+ * TestSubmissionsController implements the CRUD actions for TestSubmissions model.
  */
-class CropRequirementsController extends Controller
+class TestSubmissionsController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,14 +32,14 @@ class CropRequirementsController extends Controller
     }
 
     /**
-     * Lists all CropRequirements models.
+     * Lists all TestSubmissions models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => CropRequirements::find(),
+            'query' => TestSubmissions::find(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -60,7 +58,7 @@ class CropRequirementsController extends Controller
     }
 
     /**
-     * Displays a single CropRequirements model.
+     * Displays a single TestSubmissions model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -73,29 +71,29 @@ class CropRequirementsController extends Controller
     }
 
     /**
-     * Creates a new CropRequirements model.
+     * Creates a new TestSubmissions model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new CropRequirements();
+        $model = new TestSubmissions();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+        } else {
+            $model->loadDefaultValues();
         }
 
-        $categories = ArrayHelper::map(Crops::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
-            'categories' => $categories
         ]);
     }
 
     /**
-     * Updates an existing CropRequirements model.
+     * Updates an existing TestSubmissions model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -109,16 +107,13 @@ class CropRequirementsController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $model->cropCategoryId = $model->crop->cropCategoryId;
-        $categories = ArrayHelper::map(Crops::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
-            'categories' => $categories
         ]);
     }
 
     /**
-     * Deletes an existing CropRequirements model.
+     * Deletes an existing TestSubmissions model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -132,15 +127,15 @@ class CropRequirementsController extends Controller
     }
 
     /**
-     * Finds the CropRequirements model based on its primary key value.
+     * Finds the TestSubmissions model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return CropRequirements the loaded model
+     * @return TestSubmissions the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CropRequirements::findOne(['id' => $id])) !== null) {
+        if (($model = TestSubmissions::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
