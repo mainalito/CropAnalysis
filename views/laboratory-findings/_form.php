@@ -12,11 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'submissionId')->textInput() ?>
+    <?= $form->field($model, 'submissionId')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'parameterId')->textInput() ?>
-
-    <?= $form->field($model, 'comments')->textarea(['rows' => 6]) ?>
+    <div class="row">
+        <div class="col"><?= $form->field($model, 'parameterId')->textInput() ?></div>
+        <div class="col"><?= $form->field($model, 'comments')->textarea(['rows' => 6]) ?></div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
