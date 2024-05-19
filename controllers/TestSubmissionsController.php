@@ -2,8 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Farms;
+use app\models\NatureOfAnalysis;
+use app\models\TestingTypes;
 use app\models\TestSubmissions;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -83,12 +87,16 @@ class TestSubmissionsController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
+        $farms = ArrayHelper::map(Farms::find()->all(), 'id', 'name');
+        $testing_types = ArrayHelper::map(TestingTypes::find()->all(), 'id', 'name');
+        $nature_of_analysis = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
+            'farms' => $farms,
+            'testing_types' => $testing_types,
+            'nature_of_analysis' => $nature_of_analysis
         ]);
     }
 
@@ -107,8 +115,14 @@ class TestSubmissionsController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $farms = ArrayHelper::map(Farms::find()->all(), 'id', 'name');
+        $testing_types = ArrayHelper::map(TestingTypes::find()->all(), 'id', 'name');
+        $nature_of_analysis = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
+            'farms' => $farms,
+            'testing_types' => $testing_types,
+            'nature_of_analysis' => $nature_of_analysis
         ]);
     }
 
