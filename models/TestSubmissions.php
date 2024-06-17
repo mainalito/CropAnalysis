@@ -20,6 +20,7 @@ use Yii;
  *
  * @property Users $createdBy0
  * @property Farms $farm
+ * @property LaboratoryFindings[] $laboratoryFindings
  * @property NatureOfAnalysis $natureOfAnalysis
  * @property TestingTypes $testingType
  */
@@ -31,6 +32,41 @@ class TestSubmissions extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'test_submissions';
+    }
+
+    /**
+     * Added by Paul Mburu
+     * Filter Deleted Items
+     */
+    public static function find()
+    {
+        return parent::find()->andWhere(['=', 'test_submissions.deleted', 0]);
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before delete
+     */
+    public function delete()
+    {
+        $m = parent::findOne($this->getPrimaryKey());
+        $m->deleted = 1;
+        $m->deletedTime = date('Y-m-d H:i:s');
+        return $m->save();
+    }
+
+    /**
+     * Added by Paul Mburu
+     * To be executed before Save
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        //this record is always new
+        if ($this->isNewRecord) {
+            $this->createdBy = Yii::$app->user->identity->id;
+            $this->createdTime = date('Y-m-d h:i:s');
+        }
+        return parent::save();
     }
 
     /**
@@ -58,9 +94,9 @@ class TestSubmissions extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'farmId' => 'Farm',
-            'testingTypeId' => 'Testing Type',
-            'natureOfAnalysisId' => 'Nature Of Analysis',
+            'farmId' => 'Farm ID',
+            'testingTypeId' => 'Testing Type ID',
+            'natureOfAnalysisId' => 'Nature Of Analysis ID',
             'comments' => 'Comments',
             'createdTime' => 'Created Time',
             'updatedTime' => 'Updated Time',
@@ -88,6 +124,16 @@ class TestSubmissions extends \yii\db\ActiveRecord
     public function getFarm()
     {
         return $this->hasOne(Farms::class, ['id' => 'farmId']);
+    }
+
+    /**
+     * Gets query for [[LaboratoryFindings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLaboratoryFindings()
+    {
+        return $this->hasMany(LaboratoryFindings::class, ['submissionId' => 'id']);
     }
 
     /**

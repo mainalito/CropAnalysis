@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Farms;
+use app\models\LaboratoryFindings;
 use app\models\NatureOfAnalysis;
 use app\models\TestingTypes;
 use app\models\TestSubmissions;
@@ -69,8 +70,18 @@ class TestSubmissionsController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => LaboratoryFindings::find()->andWhere(['submissionId' => $model->id]),
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -85,7 +96,7 @@ class TestSubmissionsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['laboratory-findings/create', 'id' => $model->id]);
             }
         }
 
@@ -112,7 +123,7 @@ class TestSubmissionsController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['laboratory-findings/create', 'id' => $model->id]);
         }
 
         $farms = ArrayHelper::map(Farms::find()->all(), 'id', 'name');

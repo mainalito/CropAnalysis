@@ -3,7 +3,11 @@
 namespace app\controllers;
 
 use app\models\LaboratoryFindings;
+use app\models\Parameters;
+use app\models\TestSubmissions;
+use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -75,21 +79,42 @@ class LaboratoryFindingsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new LaboratoryFindings();
-
+        $test_submission = TestSubmissions::findOne($id);
+        $parameters = Parameters::find()->andWhere(['natureOfAnalysisId' => $test_submission->natureOfAnalysisId])->all();
+        $model = LaboratoryFindings::find()->andWhere(['submissionId' => $test_submission->id])->asArray()->all();
+        $model = ArrayHelper::index($model, 'parameterId');
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->request->post() && isset(Yii::$app->request->post()["description"])) {
+                $descriptions = Yii::$app->request->post()["description"];
+                foreach ($descriptions as $key => $description) {
+                    $jsonString = str_replace("'", "\"", $key);
+                    $formObject = json_decode($jsonString);
+                    if ($description != '') {
+                        $this->add_finding($formObject, $description);
+                    }
+                }
+                return $this->redirect(['test-submissions/view', 'id' => $test_submission->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'parameters' => $parameters,
+            'test_submission' => $test_submission,
         ]);
+    }
+
+    private function add_finding($formObject, $description)
+    {
+        $model = LaboratoryFindings::find()->andWhere(['submissionId' => $formObject->submissionId, 'parameterId' => $formObject->parameterId])->one();
+        if(is_null($model))
+            $model = new LaboratoryFindings();
+        $model->submissionId = $formObject->submissionId;
+        $model->parameterId = $formObject->parameterId;
+        $model->comments = $description;
+        return $model->save() ? $model : null;
     }
 
     /**

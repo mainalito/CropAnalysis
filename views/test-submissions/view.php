@@ -1,9 +1,11 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var app\models\TestSubmissions $model */
 
 $this->title = $model->id;
@@ -24,22 +26,75 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Close', ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
+    <div class="card">
+        <hr>
+        <div class="card-header"><h3>Farm Details</h3></div>
+        <div class="row">
+            <div class="col-6">
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        'farmId',
+                        [
+                            'attribute' => 'farm.name',
+                            'label' => 'Farm Name',
+                        ],
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-6">
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        [
+                            'attribute' => 'farm.coordinates',
+                            'label' => 'Farm Coordinates',
+                        ],
+                        [
+                            'attribute' => 'farm.altitude',
+                            'label' => 'Farm Altitude',
+                        ],
+                    ],
+                ]) ?>
+            </div>
+        </div>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                [
+                    'attribute' => 'createdTime',
+                    'label' => 'Date of Sampling',
+                    'format' => ['date', 'php:d-M-Y'],
+                ],
+                [
+                    'attribute' => 'testingType.name',
+                    'label' => 'Testing Type',
+                ],
+                [
+                    'attribute' => 'natureOfAnalysis.name',
+                    'label' => 'Nature of Analysis',
+                ],
+            ],
+        ]) ?>
+        <hr>
+        <div class="card-header"><h3>Parameters Tested and Findings</h3></div>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'farmId',
-            'testingTypeId',
-            'natureOfAnalysisId',
-            'comments:ntext',
-            'createdTime',
-            'updatedTime',
-            'deleted:boolean',
-            'deletedTime',
-            'createdBy',
-        ],
-    ]) ?>
-
+                //'id',
+                [
+                    'attribute' => 'parameter.name',
+                    'label' => 'Parameter',
+                ],
+                [
+                    'attribute' => 'comments',
+                    'label' => 'Findings',
+                ],
+            ],
+        ]); ?>
+    </div>
 </div>

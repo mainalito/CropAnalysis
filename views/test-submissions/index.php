@@ -26,21 +26,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'farmId',
-            'testingTypeId',
-            'natureOfAnalysisId',
-            'comments:ntext',
-            //'createdTime',
-            //'updatedTime',
-            //'deleted:boolean',
-            //'deletedTime',
-            //'createdBy',
+            //'id',
+            [
+                'attribute' => 'farm.name',
+                'label' => 'Farm Name',
+            ],
+            [
+                'attribute' => 'testingType.name',
+                'label' => 'Testing Type',
+            ],
+            [
+                'attribute' => 'natureOfAnalysis.name',
+                'label' => 'Nature of Analysis',
+            ],
+            [
+                'attribute' => 'createdTime',
+                'label' => 'Created Time',
+                'format' => ['date', 'php:Y-m-d H:i:s']
+            ],
+            [
+                'attribute' => 'createdBy0.username',
+                'label' => 'Created By',
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, TestSubmissions $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

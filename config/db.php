@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlsrv:Server=DESKTOP-DMPI15J;Database=Crop_Analysis',
+    'dsn' => 'sqlsrv:Server=Yii;Database=Crop_Analysis',
     'username' => 'sa',
     'password' => '123456Aa',
     'charset' => 'utf8',
