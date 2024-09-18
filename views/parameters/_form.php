@@ -24,6 +24,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'testMethodId')->dropDownList($method, ['prompt' => 'select testing method']) ?>
 
+    <?= $form->field($model, 'low')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'high')->textInput(['maxlength' => true]) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

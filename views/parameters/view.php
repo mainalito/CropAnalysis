@@ -42,6 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'testMethod.name',
                 'label' => 'Testing Method'
             ],
+            'low',
+            'high',
             [
                 'attribute' => 'createdTime',
                 'format' => ['date', 'php:d/m/Y h:i a'],
