@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'code',
             'name',
+            'units',
+            [
+                'attribute' => 'testMethod.name',
+                'label' => 'Testing Method'
+            ],
             [
                 'attribute' => 'createdTime',
                 'format' => ['date', 'php:d/m/Y h:i a'],

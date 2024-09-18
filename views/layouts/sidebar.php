@@ -77,10 +77,10 @@
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon ti-menu-alt"></i>
-                    <span class="nav-label">Testing Types</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Testing Method</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="/testing-types">Testing Types</a>
+                        <a href="/testing-methods">Testing Method</a>
                     </li>
                 </ul>
             </li>

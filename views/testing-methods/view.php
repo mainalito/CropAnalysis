@@ -1,17 +1,18 @@
 <?php
 
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\TestingTypes $model */
+/** @var app\models\TestingMethods $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Testing Types', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Testing Methods', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
-<div class="testing-types-view">
+<div class="testing-methods-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\TestingTypes $model */
+/** @var app\models\TestingMethods $model */
 
-$this->title = 'Create Testing Types';
-$this->params['breadcrumbs'][] = ['label' => 'Testing Types', 'url' => ['index']];
+$this->title = 'Create Testing Methods';
+$this->params['breadcrumbs'][] = ['label' => 'Testing Methods', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="testing-types-create">
+<div class="testing-methods-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

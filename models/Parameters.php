@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "parameters".
@@ -11,6 +13,8 @@ use Yii;
  * @property int|null $natureOfAnalysisId
  * @property string $code
  * @property string $name
+ * @property string $units
+ * @property int $testMethodId
  * @property string|null $comments
  * @property string $createdTime
  * @property string|null $updatedTime
@@ -19,9 +23,11 @@ use Yii;
  * @property int $createdBy
  *
  * @property Users $createdBy0
+ * @property LaboratoryFindings[] $laboratoryFindings
  * @property NatureOfAnalysis $natureOfAnalysis
+ * @property TestingMethods $testMethod
  */
-class Parameters extends \yii\db\ActiveRecord
+class Parameters extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,55 +38,21 @@ class Parameters extends \yii\db\ActiveRecord
     }
 
     /**
-     * Added by Paul Mburu
-     * Filter Deleted Items
-     */
-    public static function find()
-    {
-        return parent::find()->andWhere(['=', 'parameters.deleted', 0]);
-    }
-
-    /**
-     * Added by Paul Mburu
-     * To be executed before delete
-     */
-    public function delete()
-    {
-        $m = parent::findOne($this->getPrimaryKey());
-        $m->deleted = 1;
-        $m->deletedTime = date('Y-m-d H:i:s');
-        return $m->save();
-    }
-
-    /**
-     * Added by Paul Mburu
-     * To be executed before Save
-     */
-    public function save($runValidation = true, $attributeNames = null)
-    {
-        $model = new User();
-        //this record is always new
-        if ($this->isNewRecord) {
-            $this->createdBy = Yii::$app->user->identity->id;
-            $this->createdTime = date('Y-m-d h:i:s');
-        }
-        return parent::save();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['natureOfAnalysisId', 'createdBy'], 'integer'],
-            [['code', 'name', 'createdBy'], 'required'],
+            [['natureOfAnalysisId', 'testMethodId', 'createdBy'], 'integer'],
+            [['code', 'name', 'units', 'createdBy'], 'required'],
             [['comments'], 'string'],
             [['createdTime', 'updatedTime', 'deletedTime'], 'safe'],
             [['deleted'], 'boolean'],
             [['code'], 'string', 'max' => 5],
             [['name'], 'string', 'max' => 50],
+            [['units'], 'string', 'max' => 8],
             [['natureOfAnalysisId'], 'exist', 'skipOnError' => true, 'targetClass' => NatureOfAnalysis::class, 'targetAttribute' => ['natureOfAnalysisId' => 'id']],
+            [['testMethodId'], 'exist', 'skipOnError' => true, 'targetClass' => TestingMethods::class, 'targetAttribute' => ['testMethodId' => 'id']],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['createdBy' => 'id']],
         ];
     }
@@ -95,6 +67,8 @@ class Parameters extends \yii\db\ActiveRecord
             'natureOfAnalysisId' => 'Nature Of Analysis ID',
             'code' => 'Code',
             'name' => 'Name',
+            'units' => 'Units',
+            'testMethodId' => 'Test Method',
             'comments' => 'Comments',
             'createdTime' => 'Created Time',
             'updatedTime' => 'Updated Time',
@@ -107,7 +81,7 @@ class Parameters extends \yii\db\ActiveRecord
     /**
      * Gets query for [[CreatedBy0]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCreatedBy0()
     {
@@ -115,12 +89,32 @@ class Parameters extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[LaboratoryFindings]].
+     *
+     * @return ActiveQuery
+     */
+    public function getLaboratoryFindings(): ActiveQuery
+    {
+        return $this->hasMany(LaboratoryFindings::class, ['parameterId' => 'id']);
+    }
+
+    /**
      * Gets query for [[NatureOfAnalysis]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getNatureOfAnalysis()
+    public function getNatureOfAnalysis(): ActiveQuery
     {
         return $this->hasOne(NatureOfAnalysis::class, ['id' => 'natureOfAnalysisId']);
+    }
+
+    /**
+     * Gets query for [[TestMethod]].
+     *
+     * @return ActiveQuery
+     */
+    public function getTestMethod(): ActiveQuery
+    {
+        return $this->hasOne(TestingMethods::class, ['id' => 'testMethodId']);
     }
 }

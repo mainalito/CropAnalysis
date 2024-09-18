@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\NatureOfAnalysis;
 use app\models\Parameters;
+use app\models\TestingMethods;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -88,9 +89,11 @@ class ParametersController extends Controller
         }
 
         $nature = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
+        $method = ArrayHelper::map(TestingMethods::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
-            'nature' => $nature
+            'nature' => $nature,
+            'method' => $method
         ]);
     }
 
@@ -110,9 +113,11 @@ class ParametersController extends Controller
         }
 
         $nature = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
+        $method = ArrayHelper::map(TestingMethods::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
-            'nature' => $nature
+            'nature' => $nature,
+            'method' => $method
         ]);
     }
 

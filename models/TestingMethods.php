@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "testing_types".
@@ -19,14 +20,14 @@ use Yii;
  *
  * @property Users $createdBy0
  */
-class TestingTypes extends \yii\db\ActiveRecord
+class TestingMethods extends ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'testing_types';
+        return 'testing_methods';
     }
 
     /**
@@ -35,7 +36,7 @@ class TestingTypes extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return parent::find()->andWhere(['=', 'testing_types.deleted', 0]);
+        return parent::find()->andWhere(['=', 'testing_methods.deleted', 0]);
     }
 
     /**
@@ -76,7 +77,7 @@ class TestingTypes extends \yii\db\ActiveRecord
             [['createdTime', 'updatedTime', 'deletedTime'], 'safe'],
             [['deleted'], 'boolean'],
             [['createdBy'], 'integer'],
-            [['code'], 'string', 'max' => 5],
+            [['code'], 'string', 'max' => 15],
             [['name'], 'string', 'max' => 50],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['createdBy' => 'id']],
         ];

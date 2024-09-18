@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\TestingTypes $model */
+/** @var app\models\TestingMethods $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="testing-types-form">
+<div class="testing-methods-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

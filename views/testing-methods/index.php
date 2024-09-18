@@ -1,6 +1,6 @@
 <?php
 
-use app\models\TestingTypes;
+use app\models\TestingMethods;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Testing Types';
+$this->title = 'Testing Methods';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="testing-types-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Testing Types', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add Testing Methods', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'createdBy',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, TestingTypes $model, $key, $index, $column) {
+                'urlCreator' => function ($action, TestingMethods $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

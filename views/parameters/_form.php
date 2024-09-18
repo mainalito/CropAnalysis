@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /** @var app\models\Parameters $model */
 /** @var yii\widgets\ActiveForm $form */
 /** @var app\models\NatureOfAnalysis $nature */
+/** @var app\models\TestingMethods $method */
 ?>
 
 <div class="parameters-form">
@@ -18,6 +19,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'units')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'testMethodId')->dropDownList($method, ['prompt' => 'select testing method']) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

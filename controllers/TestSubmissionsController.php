@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\Farms;
 use app\models\LaboratoryFindings;
 use app\models\NatureOfAnalysis;
-use app\models\TestingTypes;
+use app\models\TestingMethods;
 use app\models\TestSubmissions;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -101,7 +101,7 @@ class TestSubmissionsController extends Controller
         }
 
         $farms = ArrayHelper::map(Farms::find()->all(), 'id', 'name');
-        $testing_types = ArrayHelper::map(TestingTypes::find()->all(), 'id', 'name');
+        $testing_types = ArrayHelper::map(TestingMethods::find()->all(), 'id', 'name');
         $nature_of_analysis = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
@@ -127,7 +127,7 @@ class TestSubmissionsController extends Controller
         }
 
         $farms = ArrayHelper::map(Farms::find()->all(), 'id', 'name');
-        $testing_types = ArrayHelper::map(TestingTypes::find()->all(), 'id', 'name');
+        $testing_types = ArrayHelper::map(TestingMethods::find()->all(), 'id', 'name');
         $nature_of_analysis = ArrayHelper::map(NatureOfAnalysis::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,

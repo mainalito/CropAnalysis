@@ -38,7 +38,7 @@ use Yii;
  * @property PastPasswords[] $pastPasswords
  * @property Settings[] $settings
  * @property Templates[] $templates
- * @property TestingTypes[] $testingTypes
+ * @property TestingMethods[] $testingTypes
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -248,12 +248,12 @@ class Users extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[TestingTypes]].
+     * Gets query for [[TestingMethods]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getTestingTypes()
     {
-        return $this->hasMany(TestingTypes::class, ['createdBy' => 'id']);
+        return $this->hasMany(TestingMethods::class, ['createdBy' => 'id']);
     }
 }

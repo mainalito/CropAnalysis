@@ -22,7 +22,7 @@ use Yii;
  * @property Farms $farm
  * @property LaboratoryFindings[] $laboratoryFindings
  * @property NatureOfAnalysis $natureOfAnalysis
- * @property TestingTypes $testingType
+ * @property TestingMethods $testingType
  */
 class TestSubmissions extends \yii\db\ActiveRecord
 {
@@ -82,7 +82,7 @@ class TestSubmissions extends \yii\db\ActiveRecord
             [['deleted'], 'boolean'],
             [['farmId'], 'exist', 'skipOnError' => true, 'targetClass' => Farms::class, 'targetAttribute' => ['farmId' => 'id']],
             [['natureOfAnalysisId'], 'exist', 'skipOnError' => true, 'targetClass' => NatureOfAnalysis::class, 'targetAttribute' => ['natureOfAnalysisId' => 'id']],
-            [['testingTypeId'], 'exist', 'skipOnError' => true, 'targetClass' => TestingTypes::class, 'targetAttribute' => ['testingTypeId' => 'id']],
+            [['testingTypeId'], 'exist', 'skipOnError' => true, 'targetClass' => TestingMethods::class, 'targetAttribute' => ['testingTypeId' => 'id']],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['createdBy' => 'id']],
         ];
     }
@@ -94,9 +94,9 @@ class TestSubmissions extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'farmId' => 'Farm ID',
-            'testingTypeId' => 'Testing Type ID',
-            'natureOfAnalysisId' => 'Nature Of Analysis ID',
+            'farmId' => 'Farm',
+            'testingTypeId' => 'Testing Method',
+            'natureOfAnalysisId' => 'Nature Of Analysis',
             'comments' => 'Comments',
             'createdTime' => 'Created Time',
             'updatedTime' => 'Updated Time',
@@ -153,6 +153,6 @@ class TestSubmissions extends \yii\db\ActiveRecord
      */
     public function getTestingType()
     {
-        return $this->hasOne(TestingTypes::class, ['id' => 'testingTypeId']);
+        return $this->hasOne(TestingMethods::class, ['id' => 'testingTypeId']);
     }
 }

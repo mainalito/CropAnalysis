@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\TestSubmissions $model */
 /** @var app\models\Farms $farms */
-/** @var app\models\TestingTypes $testing_types */
+/** @var app\models\TestingMethods $testing_types */
 /** @var app\models\NatureOfAnalysis $nature_of_analysis */
 /** @var yii\widgets\ActiveForm $form */
 ?>
